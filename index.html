@@ -771,6 +771,7 @@
         //pauses current sound (if one is playing), sets current audio and plays
         function intensityButton(audio, image, slider) {
             var currentSound = document.getElementById(image.getAttribute("current-audio"));
+			var playing = currentSound.getAttribute("data-counter");
             currentSound.setAttribute("data-counter", 0);
             if(currentSound.getAttribute("master-PlayPause-Control") == 1)
             {
@@ -778,13 +779,15 @@
             }
             image.setAttribute("current-audio", audio.id);
             currentSound = document.getElementById(image.getAttribute("current-audio"));
-            if(currentSound.getAttribute("master-PlayPause-Control") == 1)
+            if(currentSound.getAttribute("master-PlayPause-Control") == 1 && playing == 1)
             {
                 currentSound.play();
+				currentSound.setAttribute("data-counter", 1);
             }
             currentSound.volume = (masterVolumeScale*slider.value)/slider.max;
-            currentSound.setAttribute("data-counter", 1);
         }
+        
+        
         
         //updates volume whenever slider is changed
         function sliderVolume(elem, image) {
